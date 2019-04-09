@@ -4,7 +4,7 @@
 
 * Un *entry* donde se encuentren los módulos de tu proyecto llamado `index.js`
 * Un *output* con una carpeta llamada *dist* y el nombre del archivo `bundle.js`
-* Que pueda procesar archivos `sass | scss y css`
+* Que pueda procesar archivos `.sass | .scss y .css`
 * Que pueda procesar imágenes `(.png, .jpg, .jpeg, .gif)`
 * Que pueda procesar **JS** moderno **(ES6)**
 
