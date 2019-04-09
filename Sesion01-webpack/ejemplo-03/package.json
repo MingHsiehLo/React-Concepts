@@ -10,9 +10,11 @@
   "author": "Yonatan Rojas Serrano",
   "license": "MIT",
   "devDependencies": {
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
     "css-loader": "^2.1.1",
-    "style-loader": "^0.23.1"
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
