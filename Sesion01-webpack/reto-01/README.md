@@ -14,3 +14,7 @@
 * Que pueda procesar **React JS**
 * Hacer *hash* de los archivos al hacer *build*
 * Hacer *clean* de los archivos al hacer *build*
+
+## Documentación
+
+* [webpack](https://webpack.js.org/concepts)
