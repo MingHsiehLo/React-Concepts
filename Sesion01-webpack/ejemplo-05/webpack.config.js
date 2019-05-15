@@ -28,7 +28,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ dry: true }),
     new HtmlWebpackPlugin({
-      title: "Hello From webpack!!!!"
+      title: "Hello From webpack!!!!",
+      template: 'src/index.html'
     })
   ]
 };
