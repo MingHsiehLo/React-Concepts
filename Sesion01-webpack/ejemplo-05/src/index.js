@@ -1,3 +1,7 @@
-import './styles.scss'
+import React from "react";
+import { render } from "react-dom";
 
-console.log('Hola Mundo')
+import Test from "./components/Test";
+import "./styles.scss";
+
+render(<Test />, document.getElementById("root"));
