@@ -3,7 +3,7 @@
 1. Corre el comando `npm install` para instalar las dependencias del proyecto
 2. Ingresa a `http://localhost:3000/`
 3. **Comenta** el código de la línea `6` a la `13`
-4. **Descomenta** el códig de la línea `17` a la `28`
+4. **Descomenta** el código de la línea `17` a la `28`
 
 
 ## JSX
