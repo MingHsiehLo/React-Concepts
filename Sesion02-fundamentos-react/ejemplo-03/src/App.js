@@ -1,23 +1,23 @@
 import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    currentCount: 0
+  }
+
+  onAddition = () => this.setState({ currentCount: this.state.currentCount + 1 })
+  onSubstraction = () => this.setState({ currentCount: this.state.currentCount - 1 })
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Virtual DOM</h1>
+        <h2>{this.state.currentCount}</h2> 
+        <button onClick={() => this.onSubstraction()}>-</button>
+        <button onClick={() => this.onAddition()}>+</button>
+      </div>
+    );
+  }
 }
 
 export default App;
