@@ -1,3 +1,13 @@
+# Instrucciones:
+
+1. Corre el comando `npm install` para instalar las dependencias del proyecto
+2. Ingresa a `http://localhost:3000/`
+3. Abre las herramientas de desarrollo de Google y selecciona la pestaña **Elements**
+4. Da click en el botoón de `+` o `-` y observa lo que pasa en la etiqueta
+```html
+<h2>numero</h2>
+```
+
 ## ¿Por qué existe el virtual DOM?
 
 Como se ha mencionado React, optimiza el proceso de mostrar la información con
