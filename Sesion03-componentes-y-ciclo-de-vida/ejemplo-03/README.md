@@ -1,7 +1,8 @@
 ## Ciclo de vida de un componente
 
 ```sh
-$ cd mi-aplicacion
+$ cd ejemplo-03
+$ npm install
 $ npm start
 ```
 

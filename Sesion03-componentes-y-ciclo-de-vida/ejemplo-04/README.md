@@ -1,7 +1,8 @@
 ## Componentes de tipo Clase
 
 ```sh
-$ cd mi-aplicacion
+$ cd ejemplo-04
+$ npm install
 $ npm start
 ```
 Hasta el momento hemos visto componentes de tipo clase en React. También existen

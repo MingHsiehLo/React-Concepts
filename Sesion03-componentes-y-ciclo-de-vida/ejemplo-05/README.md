@@ -1,7 +1,8 @@
 ## Componentes de tipo Clase
 
 ```sh
-$ cd mi-aplicacion
+$ cd ejemplo-05
+$ npm install
 $ npm start
 ```
 

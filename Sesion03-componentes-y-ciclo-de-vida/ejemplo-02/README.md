@@ -1,7 +1,8 @@
 ## Qué son props
 
 ```sh
-$ cd mi-aplicacion
+$ cd ejemplo-02
+$ npm install
 $ npm start
 ```
 
