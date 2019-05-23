@@ -1,68 +1,61 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Componentes de tipo Clase
 
-## Available Scripts
+```sh
+$ cd mi-aplicacion
+$ npm start
+```
 
-In the project directory, you can run:
+Como podemos notar los componentes de clase tienen más métodos conforme se van
+haciendo más robustos y los componentes funcionales quedan muy pequeños y
+compactos; si hacemos una separación que permita tener un código mejor organizado, por
+ejemplo a los componentes que se encargan de traer información y que por su
+naturaleza suelen tener información dentro de sí mismos, suele llarmárseles
+componentes `listos` (smart) porque justo hacen el manejo de la información. A
+los componentes que suelen solo presentar la información se les denomina
+componentes `tontos` (dummy). En ambos casos existe la posibilidad de que unos u
+otros sean de tipo clase o funcionales, en este caso veremos un componente listo
+de tipo clase y un componente tonto de tipo funcional
 
-### `npm start`
+```js
+// ...
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+class Padre extends React.Component {
+  constructor(props) {
+    super(props)
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+    this.state = {
+      datos: {},
+    }
+  }
 
-### `npm test`
+  componentDidMount() {
+    // Esto no es real, sino un simple ejemplo
+    this.obtenerInformacion(`https://google.com/`)
+  }
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  obtenerInformacion = async (url) => {
+    const respuesta = await fetch(url).then(r => r.json())
 
-### `npm run build`
+    // Aquí guardamos la informacón en un lugar llamado estado para que podamos
+    // compartirla con otros métodos de esta clase
+    // Esto se verá a detalle en la siguiente clase
+    this.setState({datos: respuesta.datos})
+  }
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  render() {
+    const { nombre, edad } = this.state.datos
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+    return (
+      <Hijo nombre={nombre} edad={edad} />
+    )
+  }
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+function Hijo(props) {
+  return (
+    <p>{props.nombre} tiene {props.edad} años.</p>
+  )
+}
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+// ...
+```
