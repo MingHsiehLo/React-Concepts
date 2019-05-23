@@ -1,68 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Ciclo de vida de un componente
 
-## Available Scripts
+```sh
+$ cd mi-aplicacion
+$ npm start
+```
 
-In the project directory, you can run:
+Existen además otros métodos que los componentes de tipo clase pueden implementar,
+pero no son obligatorios: `componentDidMount`, `componentWillUnmount`, `constructor`
+entre otros
 
-### `npm start`
+```js
+// ...
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+class MiComponente extends React.Component {
+  constructor(props) {
+    super(props)
+    // Aquí lógica propia del constructor, por ejemplo poner valores por defecto
+    // en el componente en el estado del mismo (todavía no explicado aquí)
+  }
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+  componentDidMount() {
+    // Aquí lógica cuándo el componente ha sido montado en la vista
+  }
 
-### `npm test`
+  componentWillUnmount() {
+    // Aquí lógica que se ejecutará cuándo el componente vaya a ser desmontado
+    // de la vista
+  }
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  render () {
+    return (
+      <p>Hola Mundo</p>
+    )
+  }
+}
 
-### `npm run build`
+// ...
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Estos otros métodos junto con render, constituyen el ciclo de vida de un
+componente en React. La lista aquí expuesta no es exhaustiva, pero sí la más
+usada y que comunmente se ve. Dicho ciclo de vida ocurre de la siguiente manera:
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```
+constructor
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+render
 
-### `npm run eject`
+componentDidMount
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+(si hay cambios en el componente que hayan sido disparados en componentDidMount)
+render
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+(cuándo el componente saldrá de la vista)
+componentWillUnmount
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Por ejemplo:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```js
+// ...
 
-## Learn More
+class MiComponente extends React.Component {
+  constructor(props) {
+    super(props)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    console.log("Hola desde el constructor")
+  }
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  componentDidMount() {
+    console.log("Hola desde el componente montado")
+  }
 
-### Code Splitting
+  componentWillUnmount() {
+    console.log("Hola desde el conponente cuando será desmontado")
+  }
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+  render () {
+    console.log("Hola desde el pintado de información")
 
-### Analyzing the Bundle Size
+    return (
+      <p>Hola Mundo</p>
+    )
+  }
+}
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+// Cuándo esto se ejecute en el navegador veremos la siguiente secuencia:
+// Hola desde el constructor
+// Hola desde el pintado de información
+// Hola desde el componente montado
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+// ...
+```
