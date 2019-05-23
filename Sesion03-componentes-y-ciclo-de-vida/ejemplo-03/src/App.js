@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Title from "./Title";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ip: ""
+    };
+  }
+
+  componentDidMount() {
+    this.getData("https://checkip.amazonaws.com");
+  }
+
+  getData = async url => {
+    // Esto solo funcionará si se tiene una extensión que mande
+    // Access-Control-Allow-Origin: *
+    // como respuesta del servidor
+    const response = await fetch(url).then(r => r.text());
+
+    // Todavía no vemos por qué esto funciona, se verá en la siguiente clase
+    this.setState({ ip: response });
+  };
+
+  render() {
+    return <Title ip={this.state.ip} />;
+  }
 }
 
 export default App;
