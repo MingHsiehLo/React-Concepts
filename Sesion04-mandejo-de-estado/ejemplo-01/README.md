@@ -1,7 +1,7 @@
 ## Manejo de estado
 
 ```sh
-$ cd mi-aplicacion
+$ npm install
 $ npm start
 ```
 Como se vio en la clase pasada, los componentes de tipo clase tienen ciclo de

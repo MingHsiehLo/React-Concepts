@@ -1,7 +1,7 @@
 ## Manejo de estado
 
 ```sh
-$ cd mi-aplicacion
+$ npm install
 $ npm start
 ```
 
