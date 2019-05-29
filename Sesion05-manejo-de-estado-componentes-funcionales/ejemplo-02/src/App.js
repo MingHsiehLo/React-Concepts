@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+// Esta función es la simulación de traer la información de cuántas veces ha
+// sido compartida un mensaje en Twitter
+function getShared() {
+  return 65
+}
+
+function App(props) {
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    const share = getShared()
+    setCount(share)
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <p>Este mensaje ha sido compartido en Twitter {count} veces.</p>
+  )
 }
 
 export default App;
