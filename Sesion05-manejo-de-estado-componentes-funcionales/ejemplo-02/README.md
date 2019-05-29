@@ -1,7 +1,7 @@
 ## Ciclo de vida
 
 ```sh
-$ cd mi-aplicacion
+$ npm install
 $ npm start
 ```
 
