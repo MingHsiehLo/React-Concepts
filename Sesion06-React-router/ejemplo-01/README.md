@@ -1,7 +1,7 @@
 ## React Router
 
 ```sh
-$ cd mi-aplicacion
+$ npm install
 $ npm start
 ```
 
@@ -24,7 +24,6 @@ dan peso, en este caso veremos `react-router` que es el router más usado en
 React, sin ser oficial.
 
 ```sh
-$ cd mi-aplicacion
 $ npm install --save react-router-dom # Porque usaremos el router para web
 ```
 

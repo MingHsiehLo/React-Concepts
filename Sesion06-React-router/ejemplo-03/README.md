@@ -1,7 +1,7 @@
 ## React Router
 
 ```sh
-$ cd mi-aplicacion
+$ npm install
 $ npm start
 ```
 Cuándo uno quiere desplegar un componente (en este caso `NoExistente`) cuando
