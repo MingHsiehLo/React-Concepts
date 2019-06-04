@@ -1,68 +1,98 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Testing
 
-## Available Scripts
+El testing es importante porque aplicado con una técnica conocida como Test
+Driven Development resulta muy útil para establecer comportamiento en la
+programación que minimamente debe de cumplir.
 
-In the project directory, you can run:
+Por ejemplo, si queremos que un input solo reciba números de teléfonos de
+México, lo que ese input debe de cumplir es:
 
-### `npm start`
+- Solo recibir números
+- De las ladas disponibles en el país solo debe de soportar esas
+- Debe de tener un número determinado de dígitos un número en México
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Con este `spec` es más fácil desarrollar un componente que maneje esto como debe
+de ser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Así si el desarrollo es manejado por primero escribir el test, y luego crear la
+implementación que cumpla dicho test, permite que lo testeado se comporte
+correctamente.
 
-### `npm test`
+Para escribir Test en React, existe Jest que es una herramienta también creada
+por Facebook, que a su vez se complementa bien con una herramienta creada por
+AirBnB que se llama Enzyme
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Para iniciar a hacer testing si boostrapeamos una aplicación con Create React
+App por defecto ya trae instalado lo necesario para empezar con ello, solo hace
+falta instalar `react-test-renderer` para iniciar con los test más sencillos que
+verifican que el componente se ve como uno espera que se vea (al menos en el
+código)
 
-### `npm run build`
+```sh
+$ npm install --save-dev react-test-renderer
+$ npm test # En una consola distinta de dónde está corriendo npm start
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ahora a escribir nuestro primer test:
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```js
+// Mi.test.js
+import React from 'react'
+import renderer from 'react-test-renderer'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+test('El componente se muestra', () => {
+  const component = renderer.create(
+    <MiComponente />
+  )
 
-### `npm run eject`
+  let tree = component.toJSON()
+  expect(tree).toMatchSnapshot()
+})
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+La primera vez que corremos el comando creará el snapshot, si modificamos ahora
+el componente veremos que el test no pasará porque el snapshot y la modificación
+ya no corresponden.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para actualizar esto, solo hace falta con borrar el snapshot desactualizado para
+que se vuelva a generar y el test sea exitoso.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Hasta aquí el test es útil, pero cobra mayor relevancia cuando se combina con
+una librería que permita hacer mejores cosas `Enzyme` es una de ellas.
+Necesitamos agregarla al proyecto también, así como el adaptador para el
+Framework/Librería que estamos usando (React 16) en nuestro caso:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+$ npm install --save-dev enzyme enzyme-adapter-react-16
+$ npm test # En una consola distinta de dónde está corriendo npm start
+```
 
-## Learn More
+Ahora usaremos `Enzyme` para testear
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Necesitamos crear el archivo `src/setupTests.js` para poder configurar el
+adaptador para React
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```js
+// src/setupTests.js
+import {configure} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
-### Code Splitting
+configure({adapter: new Adapter()})
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```
 
-### Analyzing the Bundle Size
+Y ya podemos escribir el archivo que testeará
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```js
+// Mi.test.js
+import React from 'react'
+import {mount} from 'enzyme'
 
-### Making a Progressive Web App
+test('El botón del componente agregue uno', () => {
+  const component = mount(<App />)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+  component.find('button').simulate('click')
+  expect(component.find('p').equals(<p>La cuenta es: 1</p>)).toEqual(true)
+  component.unmount()
+})
+```
